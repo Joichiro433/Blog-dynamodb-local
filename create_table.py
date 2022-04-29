@@ -5,13 +5,11 @@ $ pip install boto3
 """
 
 
+import resource
 import boto3
 
 
-def create_table(dynamodb=None):
-    if dynamodb is None:
-        dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
-
+def create_table(dynamodb):
     table = dynamodb.create_table(
         TableName='Movies',
         KeySchema=[
@@ -64,7 +62,12 @@ def insert_data(table):
 
 
 if __name__ == '__main__':
-    dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+    dynamodb = boto3.resource(
+        service_name='dynamodb', 
+        endpoint_url='http://localhost:8000',
+        aws_access_key_id='',
+        aws_secret_access_key='',
+        region_name='')
     movie_table = create_table(dynamodb)
     print(f'Table status: {movie_table.table_status}')
     insert_data(movie_table)
