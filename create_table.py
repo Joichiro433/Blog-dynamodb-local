@@ -5,7 +5,6 @@ $ pip install boto3
 """
 
 
-import resource
 import boto3
 
 
